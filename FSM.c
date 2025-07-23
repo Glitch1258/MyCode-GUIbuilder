@@ -2,12 +2,26 @@
 
 int STATE = -1;
 float number = 0;
+
 struct Dimension {
  int length;
  int width;
 };
 
+struct Box {
+int type;// (button,image,div) = (1,2,3)
+int length;
+int width;
+int R;
+int G;
+int B;
+int positionX;
+int positionY;
+};
+
 struct Dimension dim;
+struct Box boxes[100];
+int boxesIndex = 0;
 int main() {
     FILE *file;
     int c;  // Note: int instead of char to handle EOF correctly
@@ -84,8 +98,47 @@ int main() {
 		   number = -1 ;
 		}
 
-		if(STATE==13 && c=='>'){
+		if(STATE==13 && c=='>'){ // push dimension data into an from hear
            STATE = 14 ;
+		}
+
+		if(STATE==0 && c =='b'){
+           STATE = 15 ;
+		}
+
+		if(STATE == 15 && c =='o'){
+           STATE = 16;
+		}
+
+		if(STATE == 16 && c=='x'){
+           STATE = 17;
+		   // box
+		   if(100>boxesIndex+1){
+              boxesIndex++;
+		   }
+		}
+
+		if(STATE == 17 && c=='l'){
+            STATE=18;
+		}
+
+		if(STATE == 18 && c =='e'){
+            STATE = 19;
+		} 
+         
+		if(STATE == 19 && c == 'n'){
+			STATE = 20;
+		}
+
+		if(STATE == 20 && c == '='){
+			STATE = 21;
+		}
+
+		if(STATE==21 && (fscanf(file, "%f", &number) == 1)){
+            STATE = 22 ;
+		    printf("Read float: %f\n", number);
+		    boxes[boxesIndex].length= number;
+		    number = -1 ;
 		}
 
         printf("[%c]-->[%d]\n",c,STATE);
@@ -98,3 +151,14 @@ int main() {
     fclose(file);
     return 0;
 }
+
+/*
+ *Dimension tag has been completed and we are in the process of doing the box tag 
+ * we have implemented the length variable of box as of now
+ *
+ *
+ *
+ *
+ *
+ *
+ * */
