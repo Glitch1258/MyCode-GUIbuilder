@@ -18,7 +18,9 @@ int B;
 int positionX;
 int positionY;
 };
-
+# define BUTTON 0 ;
+# define IMAGE 1 ; 
+# define NORMAL 2 ;
 struct Dimension dim;
 struct Box boxes[100];
 int boxesIndex = 0;
@@ -101,6 +103,7 @@ int main() {
 		   // box
 		   if(100>boxesIndex+1){
               boxesIndex++;
+			  boxes[boxesIndex].type = NORMAL ; 
 		   }
 		}
 		//----------------------
@@ -172,13 +175,50 @@ int main() {
 		}
         
 		if(STATE==35 && c==')'){STATE = 36; }
+        if(STATE == 17 && c=='p'){ STATE = 37; }
+        if(STATE == 37 && c=='o'){ STATE = 38; }
+		if(STATE == 38 && c=='s'){ STATE = 39; }
+        if(STATE == 39 && c=='='){ STATE = 40; }
+		if(STATE == 40 && c=='('){ STATE = 41; }
+		if(STATE == 41 && (fscanf(file, "%f", &number) == 1)){
+		   printf("Read float: %f\n", number);
+		   boxes[boxesIndex].positionX = number;
+		   number = -1 ;
+		   STATE = 42 ;
+		}
 
+		if(STATE == 42 && c==','){ STATE = 43 ; }
+		
+		if(STATE == 43 && (fscanf(file, "%f", &number) == 1)){
+           printf("Read float: %f\n", number);
+		   boxes[boxesIndex].positionY = number;
+		   number = -1 ;
+		   STATE = 44 ;
+		}
+		if(STATE == 44 && c==','){ STATE = 45 ; }
+		
+		if(STATE == 45 && (fscanf(file, "%f", &number) == 1)){
+           printf("Read float: %f\n", number);
+		   boxes[boxesIndex].positionX = number;
+		   number = -1 ;
+		   STATE = 46 ; 
+		}
+		if(STATE == 17 && c=='t'){ STATE = 47; }
+		if(STATE == 47 && c=='y'){ STATE = 48; }
+        if(STATE == 48 && c=='p'){ STATE = 49; }
+		if(STATE == 49 && c=='b'){ STATE = 50; }
+		if(STATE == 50 && c=='u'){ STATE = 51; }
+        if(STATE == 51 && c=='t'){ 
+		   boxes[boxesIndex].type = BUTTON ;
+		   STATE = 52;
+		}
+		//if(STATE == 17 && c=='p'){ STATE = 37; }
         printf("[%c]-->[%d]\n",c,STATE);
 		//</dim>
 
     }
-
-	while(1==1){}
+    int ab=0;
+	while(ab==100){printf(".");ab++;}
     
     fclose(file);
     return 0;
@@ -186,10 +226,10 @@ int main() {
 
 /*
  *Dimension tag has been completed and we are in the process of doing the box tag 
- * we have implemented the length variable of box as of now . Now we did width and color
+ * we have implemented the length variable of box as of now . Now we did width and color and type
  * 
- * to do box-> position and type 
- *
+ * to do circular property  box->  type (only the type  image) is left to do
+ * 
  *
  *
  *
