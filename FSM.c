@@ -17,13 +17,14 @@ int G;
 int B;
 int positionX;
 int positionY;
+int src;
 };
 # define BUTTON 0 ;
 # define IMAGE 1 ; 
 # define NORMAL 2 ;
 struct Dimension dim;
 struct Box boxes[100];
-int boxesIndex = 0;
+int boxesIndex = -1;
 int main() {
     FILE *file;
     int c;  // Note: int instead of char to handle EOF correctly
@@ -61,7 +62,7 @@ int main() {
 
         if(STATE==7 && (fscanf(file, "%f", &number) == 1)){
 
-		   printf("Read float: %f\n", number);
+		   printf("Read float dimension length : %f\n", number);
 		   dim.length = number;
 		   number = -1 ;
 		   STATE = 3;
@@ -80,7 +81,7 @@ int main() {
 
 		if(STATE==12 && (fscanf(file, "%f", &number) == 1)){
 
-		   printf("Read float: %f\n", number);
+		   printf("Read float dimension width: %f\n", number);
 		   dim.width = number;
 		   number = -1 ;
 		   STATE = 3;
@@ -119,7 +120,7 @@ int main() {
 
 		if(STATE==21 && (fscanf(file, "%f", &number) == 1)){
             //STATE = 22 ;
-		    printf("Read float: %f\n", number);
+		    printf("Read float length : %f\n", number);
 		    boxes[boxesIndex].length= number;
 		    number = -1 ;
 			STATE = 17;
@@ -136,7 +137,7 @@ int main() {
 
 		if(STATE==26 && (fscanf(file, "%f", &number) == 1)){
             //STATE = 27 ;
-		    printf("Read float: %f\n", number);
+		    printf("Read float width: %f\n", number);
 		    boxes[boxesIndex].width= number;
 		    number = -1 ;
 			STATE = 17;
@@ -150,7 +151,7 @@ int main() {
 		if(STATE == 29 && c == '('){ STATE = 30; }
         
 		if(STATE == 30 && (fscanf(file, "%f", &number) == 1)){
-           printf("Read float: %f\n", number);
+           printf("Read float colour R : %f\n", number);
 		    boxes[boxesIndex].R = number;
 		    number = -1 ;
 			STATE = 31;
@@ -159,7 +160,7 @@ int main() {
 		if(STATE==31 && c==','){STATE = 32; }
 
         if(STATE == 32 && (fscanf(file, "%f", &number) == 1)){
-            printf("Read float: %f\n", number);
+            printf("Read float colour G : %f\n", number);
 		    boxes[boxesIndex].G = number;
 		    number = -1 ;
 			STATE = 33;
@@ -168,7 +169,7 @@ int main() {
         if(STATE==33 && c==','){STATE = 34; }
        
 		if(STATE == 34 && (fscanf(file, "%f", &number) == 1)){
-            printf("Read float: %f\n", number);
+            printf("Read float colour B : %f\n", number);
 		    boxes[boxesIndex].B = number;
 		    number = -1 ;
 			STATE = 35;
@@ -181,7 +182,7 @@ int main() {
         if(STATE == 39 && c=='='){ STATE = 40; }
 		if(STATE == 40 && c=='('){ STATE = 41; }
 		if(STATE == 41 && (fscanf(file, "%f", &number) == 1)){
-		   printf("Read float: %f\n", number);
+		   printf("Read float position X : %f\n", number);
 		   boxes[boxesIndex].positionX = number;
 		   number = -1 ;
 		   STATE = 42 ;
@@ -190,36 +191,64 @@ int main() {
 		if(STATE == 42 && c==','){ STATE = 43 ; }
 		
 		if(STATE == 43 && (fscanf(file, "%f", &number) == 1)){
-           printf("Read float: %f\n", number);
+           printf("Read float position y : %f\n", number);
 		   boxes[boxesIndex].positionY = number;
 		   number = -1 ;
-		   STATE = 44 ;
+		   STATE = 17 ;
 		}
-		if(STATE == 44 && c==','){ STATE = 45 ; }
+		//if(STATE == 44 && c==','){ STATE = 45 ; }
 		
-		if(STATE == 45 && (fscanf(file, "%f", &number) == 1)){
+		/*if(STATE == 45 && (fscanf(file, "%f", &number) == 1)){
            printf("Read float: %f\n", number);
 		   boxes[boxesIndex].positionX = number;
 		   number = -1 ;
 		   STATE = 46 ; 
-		}
-		if(STATE == 17 && c=='t'){ STATE = 47; }
+		}*/
+		if(STATE == 17 && c=='T'){ STATE = 47; }
 		if(STATE == 47 && c=='y'){ STATE = 48; }
         if(STATE == 48 && c=='p'){ STATE = 49; }
-		if(STATE == 49 && c=='b'){ STATE = 50; }
-		if(STATE == 50 && c=='u'){ STATE = 51; }
-        if(STATE == 51 && c=='t'){ 
+		if(STATE == 49 && c=='='){ STATE = 50; }
+		if(STATE == 50 && c=='b'){ STATE = 51; }
+		if(STATE == 51 && c=='u'){ STATE = 52; }
+        if(STATE == 52 && c=='t'){ 
 		   boxes[boxesIndex].type = BUTTON ;
-		   STATE = 52;
+		   STATE = 17;
 		}
+
+		if(STATE == 50 && c=='i'){ STATE = 54; }
+		if(STATE == 54 && c=='m'){ STATE = 55; }
+		if(STATE == 55 && c=='a'){ STATE = 56; }
+		if(STATE == 56 && c==':'){ STATE = 57; }
+		if(STATE == 57 && (fscanf(file, "%f", &number) == 1)){
+          printf("Read float src : %f\n", number);
+     	  boxes[boxesIndex].type = IMAGE ;
+		  boxes[boxesIndex].src =  number;
+          number = -1;
+		  STATE = 17;
+		}
+		if(c=='/'){ STATE = 58; }
+		if(STATE == 58 && c=='>'){ STATE = 59; }
 		//if(STATE == 17 && c=='p'){ STATE = 37; }
-        printf("[%c]-->[%d]\n",c,STATE);
+        //printf("[%c]-->[%d]\n",c,STATE);
 		//</dim>
 
     }
-    int ab=0;
-	while(ab==100){printf(".");ab++;}
-    
+/*
+	for(int i = 0 ; i < 10 ;i++ ){
+		printf("dimension lenght :%d\n",dim.length);
+		printf("dimension width :%d\n",dim.width);
+		printf("length :%d\n",boxes[i].length);
+		printf("width :%d\n",boxes[i].width);
+		printf("type :%d\n",boxes[i].type);
+		printf("R :%d\n",boxes[i].R);
+		printf("G :%d\n",boxes[i].G);
+		printf("B :%d\n",boxes[i].B);
+	    printf("position X :%d\n",boxes[i].positionX);
+		printf("position y :%d\n",boxes[i].positionY);
+		printf("src :%d\n",boxes[i].src);
+		printf("--------------\n");
+	}
+	*/
     fclose(file);
     return 0;
 }
