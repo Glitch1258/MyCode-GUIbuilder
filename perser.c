@@ -1,7 +1,7 @@
 #include <windows.h>  // Include Windows API header for GUI programming
 #include <stdio.h>
 #include "utilityFunctions.h"
-
+#include "FSM.h"
 // Global variables
 HDC hdc;  // Handle to Device Context (used for drawing)
 COLORREF currentColor = RGB(255, 0, 0); // Default pixel color (red)
@@ -85,6 +85,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 // Entry point for Windows application
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+	runFSM();
     // Register window class - defines window properties
     WNDCLASS wc = {0};  // Initialize all fields to zero
     wc.lpfnWndProc = WndProc;  // Set our window procedure
@@ -114,7 +115,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
 
     // Main message loop - processes all messages for our application
-	DrawRedSquare(hdc,100,20); 
+	DrawRedSquare(hdc,boxes[0].positionX, boxes[0].positionY); 
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);  // Translate virtual-key messages
@@ -126,3 +127,4 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Return the exit code from the last message
     return (int)msg.wParam;
 }
+// gcc perser.c -o perser -lgdi32
