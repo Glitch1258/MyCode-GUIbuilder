@@ -196,6 +196,7 @@ int runFSM() {
 	
     }
 
+	/*
 	for(int i = 0 ; i < 10 ;i++ ){
 		printf("dimension lenght :%d\n",dim.length);
 		printf("dimension width :%d\n",dim.width);
@@ -210,6 +211,7 @@ int runFSM() {
 		printf("src :%s\n",boxes[i].src);
 		printf("--------------\n");
 	}
+	*/
 	
     fclose(file);
     return 0;

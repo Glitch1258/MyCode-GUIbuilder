@@ -115,6 +115,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Make the window visible
     ShowWindow(hwnd, nCmdShow);
 
+
+    TextOutA(hdc, 0, dim.length-80, "Pixel Drawer Application :", 28);
+
 	for(int i = 0 ; i < boxesLength ; i++){
 		
 		if(boxes[i].type == 1 ){
