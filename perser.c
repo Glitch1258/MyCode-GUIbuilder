@@ -101,8 +101,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         WS_OVERLAPPEDWINDOW, // Standard window style
         CW_USEDEFAULT,       // Default horizontal position
         CW_USEDEFAULT,       // Default vertical position
-        800,                 // Width
-        600,                // Height
+        dim.width,                 // Width
+        dim.length,                // Height
         NULL,                // No parent window
         NULL,               // No menu
         hInstance,          // Application instance
@@ -115,10 +115,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Make the window visible
     ShowWindow(hwnd, nCmdShow);
 
+	for(int i = 0 ; i < boxesLength ; i++){
+		
+		if(boxes[i].type == 1 ){
+		   showImage(hdc,boxes[i].src, boxes[i].width , boxes[i].length , boxes[i].positionX , boxes[i].positionY);
+
+		}
+		
+		if(boxes[i].type == 2 ){
+		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
+		}
+
+	}
+
     // Main message loop - processes all messages for our application
-	DrawRedSquare(hdc,boxes[1].positionX, boxes[1].positionY , boxes[1].width , boxes[1].length , boxes[1].R , boxes[1].G , boxes[1].B );
-	showImage(hdc,"test.jpg" , 50 , 50 , 50 , 150);
-    MSG msg;
+	    MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);  // Translate virtual-key messages
         DispatchMessage(&msg);   // Send message to our WndProc

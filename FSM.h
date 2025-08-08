@@ -27,7 +27,7 @@ struct Box {
 
 struct Dimension dim;
 struct Box boxes[100];
-
+int boxesLength;
 int runFSM() {
 
     FILE *file;
@@ -184,7 +184,7 @@ int runFSM() {
 			}
 			
 			boxes[boxesIndex].src = (char *)malloc(sizeof(char)*index);
-
+			boxesLength = index;
 			for(int i = 0 ; i < index ; i++ ){
 				boxes[boxesIndex].src[i] = buffer[i];
 			}
