@@ -117,7 +117,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     // Main message loop - processes all messages for our application
 	DrawRedSquare(hdc,boxes[1].positionX, boxes[1].positionY , boxes[1].width , boxes[1].length , boxes[1].R , boxes[1].G , boxes[1].B );
-	showImage(hdc , 100 , 200 , 50 , 50);
+	showImage(hdc,"test.jpg" , 50 , 50 , 50 , 150);
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);  // Translate virtual-key messages

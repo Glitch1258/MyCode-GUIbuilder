@@ -2,12 +2,12 @@
 #include "stb_image.h"
 #include <stdio.h>
 
-int showImage(HDC hdc , int scaleX , int scaleY , int moveX , int moveY) {
+int showImage(HDC hdc ,char * path,int scaleX , int scaleY , int moveX , int moveY) {
 
     int width, height, channels;
     
     // Load the JPEG image (automatically converts to RGB)
-    unsigned char *image = stbi_load("test.jpg", &width, &height, &channels, 0);
+    unsigned char *image = stbi_load(path, &width, &height, &channels, 0);
     
     if (!image) {
         printf("Error: Could not load image!\n");
