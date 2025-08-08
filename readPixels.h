@@ -2,12 +2,8 @@
 #include "stb_image.h"
 #include <stdio.h>
 
-int mainT(HDC hdc) {
+int showImage(HDC hdc , int scaleX , int scaleY , int moveX , int moveY) {
 
-	int positionX=250;
-	int positionY=250;
-	int nw=200;
-	int nh=100;
     int width, height, channels;
     
     // Load the JPEG image (automatically converts to RGB)
@@ -19,26 +15,33 @@ int mainT(HDC hdc) {
     }
 
     // Print image info
-    printf("Image loaded: %d x %d pixels, %d channels (RGB)\n", width, height, channels);
+    //printf("Image loaded: %d x %d pixels, %d channels (RGB)\n", width, height, channels);
 
     // Loop through all pixels
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    for (int y = 0 ; y < height ; y++) {
+        for (int x = 0 ; x < width ; x++) {
             // Calculate the index for the current pixel
-            int index = (y * width + x) * channels;
-            
+            int index = (y * width + x) * channels;      
             // Get RGB values
             unsigned char r = image[index];
             unsigned char g = image[index + 1];
             unsigned char b = image[index + 2];
 			COLORREF color = RGB(r, g, b);
-			x/=width;
-			y/=height;
-			x*=nw;
-			y*=nh;
-			SetPixel(hdc, x, y, color);
+			float floX = x ;
+			float floY = y ;
+			floX = (floX/ width)*scaleX;
+			floY = (floY/ height)*scaleY;
+			//printf("(floX = %d , floY = %d )",(int)floX,(int)floY);
+			
+
+			SetPixel(
+					hdc,
+					moveX+(int)floX,
+					moveY+(int)floY,
+					color
+					);
             // Print pixel coordinates and RGB values
-            printf("Pixel at (%d, %d): R=%3d, G=%3d, B=%3d\n", x, y, r, g, b);
+            //printf("Pixel at (%d, %d): R=%3d, G=%3d, B=%3d\n", x, y, r, g, b);
         }
     }
 

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "utilityFunctions.h"
 #include "FSM.h"
+#include "readPixels.h"
 // Global variables
 HDC hdc;  // Handle to Device Context (used for drawing)
 COLORREF currentColor = RGB(255, 0, 0); // Default pixel color (red)
@@ -115,7 +116,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
 
     // Main message loop - processes all messages for our application
-	DrawRedSquare(hdc,boxes[0].positionX, boxes[0].positionY); 
+	DrawRedSquare(hdc,boxes[1].positionX, boxes[1].positionY , boxes[1].width , boxes[1].length , boxes[1].R , boxes[1].G , boxes[1].B );
+	showImage(hdc , 100 , 200 , 50 , 50);
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);  // Translate virtual-key messages
