@@ -114,18 +114,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     hdc = GetDC(hwnd);
     // Make the window visible
     ShowWindow(hwnd, nCmdShow);
-
-
-    TextOutA(hdc, 0, dim.length-80, "Pixel Drawer Application :", 28);
+    TextOutA(hdc, 0, 300, "Pixel Drawer Application :", 28);
 
 	for(int i = 0 ; i < boxesLength ; i++){
 		
-		if(boxes[i].type == 1 ){
+		if(boxes[i].type == IMAGE){
 		   showImage(hdc,boxes[i].src, boxes[i].width , boxes[i].length , boxes[i].positionX , boxes[i].positionY);
 
 		}
 		
-		if(boxes[i].type == 2 ){
+		if(boxes[i].type == BUTTON){
+		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
+		}
+
+		if(boxes[i].type == NORMAL){
 		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
 		}
 

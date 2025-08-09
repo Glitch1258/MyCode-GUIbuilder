@@ -178,8 +178,10 @@ int runFSM() {
 		if(STATE == 57 && c=='~'){
 			char buffer [1024];
 			int index = 0 ;
+            printf("reading: ");
 			while(((c = fgetc(file)) != '~')){
 				buffer[index] = c ;
+				//printf("%d %c ",index,c);
 				index++;
 			}
 			
@@ -187,7 +189,11 @@ int runFSM() {
 			boxesLength = index;
 			for(int i = 0 ; i < index ; i++ ){
 				boxes[boxesIndex].src[i] = buffer[i];
+				printf("%d %c ",i,buffer[i]);
+				 
 			}
+			 boxes[boxesIndex].src[index] = '\0';
+
             boxes[boxesIndex].type = IMAGE ; 
 		}
 		
@@ -196,7 +202,6 @@ int runFSM() {
 	
     }
 
-	/*
 	for(int i = 0 ; i < 10 ;i++ ){
 		printf("dimension lenght :%d\n",dim.length);
 		printf("dimension width :%d\n",dim.width);
@@ -211,7 +216,6 @@ int runFSM() {
 		printf("src :%s\n",boxes[i].src);
 		printf("--------------\n");
 	}
-	*/
 	
     fclose(file);
     return 0;
