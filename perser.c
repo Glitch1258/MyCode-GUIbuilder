@@ -23,6 +23,34 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             InvalidateRect(hwnd, NULL, FALSE);
             break;
         }
+	    case WM_RBUTTONDOWN: {  // Left mouse button pressed
+            printf("Right mouse button pressed\n");
+            // Get mouse coordinates from lParam
+            lastX = LOWORD(lParam);  // X coordinate is in low word
+            lastY = HIWORD(lParam);  // Y coordinate is in high word
+            // Draw a pixel at clicked position with current color
+            //SetPixel(hdc, lastX, lastY, currentColor);
+            // Request window redraw to make pixel visible
+			for(int i = 0 ; i<boxesLength ; i++){
+				if(boxes[i].type==BUTTON){
+					int topLeftX =  boxes[i].positionX;
+					int topLeftY =  boxes[i].positionY;
+					int bottomRightX = boxes[i].positionX + (int)((boxes[i].width));
+					int bottomRightY = boxes[i].positionY + (int)((boxes[i].length));
+					//printf("------------------------------------\n");
+					//printf("[%d]<-->[%d]\n",topLeftX,topLeftY);
+					//printf("[%d]<-->[%d]\n",bottomRightX,bottomRightY);
+					//printf("------------------------------------\n");
+					if((lastX<bottomRightX)&&(lastX>topLeftX) && (lastY>topLeftY) && (lastY<bottomRightY)){
+						printf("pressed buttion id %d \n",boxes[i].id);
+					}
+
+				}
+				
+			}
+            InvalidateRect(hwnd, NULL, FALSE);
+            break;
+        }
         case WM_MOUSEMOVE: {  // Mouse movement detected
             int x = LOWORD(lParam);  // Current X position
             int y = HIWORD(lParam);  // Current Y position
@@ -117,17 +145,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     TextOutA(hdc, 0, 300, "Pixel Drawer Application :", 28);
 
 	for(int i = 0 ; i < boxesLength ; i++){
-		
+		printf("idx %d type %d \n",i, boxes[i].type);
 		if(boxes[i].type == IMAGE){
 		   showImage(hdc,boxes[i].src, boxes[i].width , boxes[i].length , boxes[i].positionX , boxes[i].positionY);
 
 		}
 		
-		if(boxes[i].type == BUTTON){
+		else if(boxes[i].type == BUTTON){
 		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
 		}
 
-		if(boxes[i].type == NORMAL){
+		else if(boxes[i].type == NORMAL){
 		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
 		}
 

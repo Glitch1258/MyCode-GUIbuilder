@@ -22,6 +22,7 @@ struct Box {
  int B;
  int positionX;
  int positionY;
+ int id;
  char *src;
 };
 
@@ -135,7 +136,7 @@ int runFSM() {
 			STATE = 35;
 		}
         
-		if(STATE==35 && c==')'){STATE = 36; }
+		if(STATE==35 && c==')'){STATE = 17; }
         if(STATE == 17 && c=='p'){ STATE = 37; }
         if(STATE == 37 && c=='o'){ STATE = 38; }
 		if(STATE == 38 && c=='s'){ STATE = 39; }
@@ -194,12 +195,22 @@ int runFSM() {
 			}
 			 boxes[boxesIndex].src[index] = '\0';
 
-            boxes[boxesIndex].type = IMAGE ; 
+            boxes[boxesIndex].type = IMAGE ;
+			STATE = 17;
+		}
+
+		if(STATE==17 && c== 'i'){ STATE = 60 ;}
+		if(STATE==60 && c== 'd'){ STATE = 61 ;}
+		if(STATE==61 && c== '='){ STATE = 62 ;printf("catttttt\n");}
+		if(STATE==62 && (fscanf(file, "%f", &number) == 1)){
+		   boxes[boxesIndex].id = (int)number;
+		   number = -1 ;
+		   STATE = 17 ;
 		}
 		
 		if(c=='/'){ STATE = 58; }
 		if(STATE == 58 && c=='>'){ STATE = 59; }
-	
+		printf("STATE %d---> character : [%c]\n",(STATE-1),c);
     }
 
 	for(int i = 0 ; i < 10 ;i++ ){
@@ -214,6 +225,7 @@ int runFSM() {
 	    printf("position X :%d\n",boxes[i].positionX);
 		printf("position y :%d\n",boxes[i].positionY);
 		printf("src :%s\n",boxes[i].src);
+		printf("id :%d\n",boxes[i].id);
 		printf("--------------\n");
 	}
 	
