@@ -50,7 +50,16 @@ int showImage(HDC hdc ,char * path,int scaleX , int scaleY , int moveX , int mov
     return 0;
 }
 */
+/*
+ *This code efficiently loads and displays an image by first using stbi_load to read the image file into memory as an RGB pixel array.
+ It then creates a Device-Independent Bitmap (DIB) section configured for 24-bit BGR format (Windows' native pixel layout) with matching dimensions. 
+ The critical color correction happens during the pixel data transfer - the code carefully reorders the RGB channels from the source image to BGR format
+ expected by Windows, while also handling special cases like grayscale images (by replicating the single channel to all three color channels).
+ The bitmap is then selected into a memory device context for fast manipulation. 
+ Finally, StretchBlt performs a high-quality resize operation (using HALFTONE mode) to copy the image from the memory buffer to the screen in one efficient operation,
+ avoiding the slow pixel-by-pixel SetPixel approach. The code properly cleans up all resources to prevent memory leaks.
 
+*/
 int showImage(HDC hdc, char* path, int scaleX, int scaleY, int moveX, int moveY) {
     int width, height, channels;
     unsigned char* image = stbi_load(path, &width, &height, &channels, STBI_rgb); // Force RGB format

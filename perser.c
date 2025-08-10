@@ -6,6 +6,7 @@
 #include "FSM.h"
 #include "readPixels.h"
 #include "buttonCallback.h"
+
 // Global variables
 HDC hdc;  // Handle to Device Context (used for drawing)
 COLORREF currentColor = RGB(255, 0, 0); // Default pixel color (red)
@@ -26,7 +27,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			
 			 {// new scope
 			
-			for(int i = 0 ; i<boxesLength ; i++){
+			for(int i = 0 ; i<boxesIndex+1 ; i++){
 				if(boxes[i].type==BUTTON){
 					int topLeftX =  boxes[i].positionX;
 					int topLeftY =  boxes[i].positionY;
@@ -61,7 +62,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 			{// new scope
 			
-			for(int i = 0 ; i<boxesLength ; i++){
+			for(int i = 0 ; i<boxesIndex+1 ; i++){
 				if(boxes[i].type==BUTTON){
 					int topLeftX =  boxes[i].positionX;
 					int topLeftY =  boxes[i].positionY;
@@ -180,18 +181,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
     TextOutA(hdc, 0, 300, "Pixel Drawer Application :", 28);
 
-	for(int i = 0 ; i < boxesLength ; i++){
+	for(int i = 0 ; i < boxesIndex+1 ; i++){
 		printf("idx %d type %d \n",i, boxes[i].type);
 		if(boxes[i].type == IMAGE){
 		   showImage(hdc,boxes[i].src, boxes[i].width , boxes[i].length , boxes[i].positionX , boxes[i].positionY);
 
 		}
 		
-		else if(boxes[i].type == BUTTON){
+		if(boxes[i].type == BUTTON){
 		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
 		}
 
-		else if(boxes[i].type == NORMAL){
+	   if(boxes[i].type == NORMAL){
 		   DrawRedSquare(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
 		}
 

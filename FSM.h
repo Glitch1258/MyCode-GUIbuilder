@@ -28,7 +28,7 @@ struct Box {
 
 struct Dimension dim;
 struct Box boxes[100];
-int boxesLength;
+//int boxesLength;
 int runFSM() {
 
     FILE *file;
@@ -187,7 +187,7 @@ int runFSM() {
 			}
 			
 			boxes[boxesIndex].src = (char *)malloc(sizeof(char)*index);
-			boxesLength = index;
+			//boxesLength = index;
 			for(int i = 0 ; i < index ; i++ ){
 				boxes[boxesIndex].src[i] = buffer[i];
 				printf("%d %c ",i,buffer[i]);
@@ -213,7 +213,7 @@ int runFSM() {
 		printf("STATE %d---> character : [%c]\n",(STATE-1),c);
     }
 
-	for(int i = 0 ; i < 10 ;i++ ){
+	for(int i = 0 ; i < boxesIndex+1 ;i++ ){
 		printf("dimension lenght :%d\n",dim.length);
 		printf("dimension width :%d\n",dim.width);
 		printf("length :%d\n",boxes[i].length);
