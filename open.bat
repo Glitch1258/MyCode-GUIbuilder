@@ -1,1 +1,1 @@
-nvim -p perser.c gui.txt utilityFunctions.h readPixels.h FSM.h
+nvim -p perser.c gui.txt utilityFunctions.h readPixels.h FSM.h buttonCallback.h

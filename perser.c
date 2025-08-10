@@ -1,8 +1,11 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 #include <windows.h>  // Include Windows API header for GUI programming
 #include <stdio.h>
 #include "utilityFunctions.h"
 #include "FSM.h"
 #include "readPixels.h"
+#include "buttonCallback.h"
 // Global variables
 HDC hdc;  // Handle to Device Context (used for drawing)
 COLORREF currentColor = RGB(255, 0, 0); // Default pixel color (red)
@@ -18,19 +21,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             lastX = LOWORD(lParam);  // X coordinate is in low word
             lastY = HIWORD(lParam);  // Y coordinate is in high word
             // Draw a pixel at clicked position with current color
-            SetPixel(hdc, lastX, lastY, currentColor);
-            // Request window redraw to make pixel visible
-            InvalidateRect(hwnd, NULL, FALSE);
-            break;
-        }
-	    case WM_RBUTTONDOWN: {  // Left mouse button pressed
-            printf("Right mouse button pressed\n");
-            // Get mouse coordinates from lParam
-            lastX = LOWORD(lParam);  // X coordinate is in low word
-            lastY = HIWORD(lParam);  // Y coordinate is in high word
-            // Draw a pixel at clicked position with current color
             //SetPixel(hdc, lastX, lastY, currentColor);
             // Request window redraw to make pixel visible
+			
+			 {// new scope
+			
 			for(int i = 0 ; i<boxesLength ; i++){
 				if(boxes[i].type==BUTTON){
 					int topLeftX =  boxes[i].positionX;
@@ -42,12 +37,53 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					//printf("[%d]<-->[%d]\n",bottomRightX,bottomRightY);
 					//printf("------------------------------------\n");
 					if((lastX<bottomRightX)&&(lastX>topLeftX) && (lastY>topLeftY) && (lastY<bottomRightY)){
-						printf("pressed buttion id %d \n",boxes[i].id);
+						//printf("pressed buttion id %d \n",boxes[i].id);
+						buttonCallback(boxes[i].id);
 					}
 
 				}
 				
 			}
+
+
+			} // new scope
+            InvalidateRect(hwnd, NULL, FALSE);
+            break;
+        }
+	    case WM_RBUTTONDOWN: {  // Left mouse button pressed
+            printf("Right mouse button pressed\n");
+            // Get mouse coordinates from lParam
+            lastX = LOWORD(lParam);  // X coordinate is in low word
+            lastY = HIWORD(lParam);  // Y coordinate is in high word
+            // Draw a pixel at clicked position with current color
+            //SetPixel(hdc, lastX, lastY, currentColor);
+            // Request window redraw to make pixel visible
+
+			{// new scope
+			
+			for(int i = 0 ; i<boxesLength ; i++){
+				if(boxes[i].type==BUTTON){
+					int topLeftX =  boxes[i].positionX;
+					int topLeftY =  boxes[i].positionY;
+					int bottomRightX = boxes[i].positionX + (int)((boxes[i].width));
+					int bottomRightY = boxes[i].positionY + (int)((boxes[i].length));
+					//printf("------------------------------------\n");
+					//printf("[%d]<-->[%d]\n",topLeftX,topLeftY);
+					//printf("[%d]<-->[%d]\n",bottomRightX,bottomRightY);
+					//printf("------------------------------------\n");
+					if((lastX<bottomRightX)&&(lastX>topLeftX) && (lastY>topLeftY) && (lastY<bottomRightY)){
+						//printf("pressed buttion id %d \n",boxes[i].id);
+						buttonCallback(boxes[i].id);
+					}
+
+				}
+				
+			}
+
+
+			} // new scope
+
+
             InvalidateRect(hwnd, NULL, FALSE);
             break;
         }

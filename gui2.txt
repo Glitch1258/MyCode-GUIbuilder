@@ -1,5 +1,0 @@
-<box position = (0,0) width = 300 length = 300  Type = image:~./test.jpg~ color = (211,111,201) id =1   />
-<box position = (200,450) width = 150 length = 150 Type = image:~./test.jpg~  color = (211,111,201) id = 2  />
-<box position = (250,300) width = 150 length = 50   color = (255,0,0) id = 6/>
-<box position = (0,320) width = 150 length = 100  Type = button color = (0,255,0)  id = 7/>
-<box position = (0,620) width = 100 length = 20  color = (0,255,0) id = 8 />
