@@ -1,6 +1,7 @@
 <dimensions length = 800 width = 500  >
 <box position = (0,0) width = 300 length = 300     Type = image:~./test.jpg~ color = (211,111,201) id =5   />
-<box position = (200,450) width = 150 length = 150 Type = image:~./test3.jpg~  color = (211,111,201)  />
-<box position = (350,500) width = 50 length = 50   Type = button color = (0,0,201) id = 1  />
-<box position = (0,320) width = 150 length = 100   Type = button color = (0,255,0)  id = 2/>
-<box position = (0,620) width = 100 length = 20    color = (0,255,0) id = 8 />
+<box position = (0,0.7) width = 150 length = 150 Type = button  color = (211,111,201) id = 3 />
+<box position = (0,0.7) width = 150 length = 150 Type = image:~./test3.jpg~  color = (211,111,201) id=7 />
+<box position = (0.3,0.5) width = 50 length = 50   Type = button color = (0,0,201) id = 1  />
+<box position = (0.5,0.5) width = 150 length = 100   Type = button color = (0,255,0)  id = 2/>
+<box position = (0.0,0.5) width = 100 length = 20    color = (0,255,0) id = 8 />
