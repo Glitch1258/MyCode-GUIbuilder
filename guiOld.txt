@@ -1,0 +1,26 @@
+<dimensions length=780 width=780>
+
+<!-- Top Row -->
+<box position=(0,0) width=300 length=300 Type=image:~./test.jpg~ color=(211,111,201) id=1 />
+<box position=(310,0) width=300 length=300  color=(0,255,0) id=2 />
+<box position=(620,0) width=140 length=300  color=(211,111,201) id=3 />
+
+<!-- Middle Section - Left Column -->
+<box position=(0,325) width=100 length=410 color=(0,255,0) id=4 />
+
+<!-- Middle Section - Card Grid Row 1 -->
+<box position=(110,325) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=5 />
+<box position=(240,325) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=6 />
+<box position=(370,325) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=7 />
+<box position=(500,325) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=8 />
+<box position=(630,325) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=9 />
+
+<!-- Middle Section - Card Grid Row 2 -->
+<box position=(110,500) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=10 />
+<box position=(240,500) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=11 />
+<box position=(370,500) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=12 />
+<box position=(500,500) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=13 />
+<box position=(630,500) width=125 length=150 Type=image:~./test3.jpg~ color=(211,111,201) id=14 />
+
+<!-- Bottom Bar -->
+<box position=(110,660) width=650 length=75 color=(211,111,201) id=15 />

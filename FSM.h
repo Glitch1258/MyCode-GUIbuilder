@@ -146,7 +146,7 @@ int runFSM() {
 		if(STATE == 41 && (fscanf(file, "%f", &number) == 1)){
 		   printf("Read float position X : %f\n", number);
 		   //(int)(number*dim.width); is used to adjust the position of elements with window dimension replace with just [number] to use absolute position value
-		   boxes[boxesIndex].positionX = /* number*/(int)(number*dim.width); 
+		   boxes[boxesIndex].positionX = number; //(int)(number*dim.width); 
 		   number = -1 ;
 		   STATE = 42 ;
 		}
@@ -156,7 +156,7 @@ int runFSM() {
 		if(STATE == 43 && (fscanf(file, "%f", &number) == 1)){
            printf("Read float position y : %f\n", number);
 		   //(int)(number*dim.width); is used to adjust the position of elements with window dimension replace with just [number] to use absolute position value
-		   boxes[boxesIndex].positionY = /* number*/(int)(number*dim.length); 
+		   boxes[boxesIndex].positionY = number;//(int)(number*dim.length); 
 		   number = -1 ;
 		   STATE = 17 ;
 		}
