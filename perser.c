@@ -179,8 +179,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     hdc = GetDC(hwnd);
     // Make the window visible
     ShowWindow(hwnd, nCmdShow);
-    TextOutA(hdc, 0, 300, "Pixel Drawer Application :", 28);
-
+    
 	for(int i = 0 ; i < boxesIndex+1 ; i++){
 		printf("idx %d type %d \n",i, boxes[i].type);
 		if(boxes[i].type == IMAGE){
@@ -194,6 +193,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	   if(boxes[i].type == NORMAL){
 		   DrawColorBlock(hdc,boxes[i].positionX, boxes[i].positionY , boxes[i].width , boxes[i].length , boxes[i].R , boxes[i].G , boxes[i].B );
+		}
+	    
+       if(boxes[i].type == STR){
+		   TextOutA(hdc,boxes[i].positionX,boxes[i].positionY, boxes[i].src , boxes[i].stringLength);
 		}
 
 	}

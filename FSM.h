@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+# define STR 3
 # define BUTTON 2 
 # define IMAGE 1  
 # define NORMAL 0 
-
+#define src str
 int boxesIndex = -1 ;
 int STATE = -1;
 float number = 0;
@@ -24,6 +25,7 @@ struct Box {
  int positionY;
  int id;
  char *src;
+ int stringLength;
 };
 
 struct Dimension dim;
@@ -74,12 +76,12 @@ int runFSM() {
 		if(STATE==0 && c =='b'){ STATE = 15 ; }
 		if(STATE == 15 && c =='o'){ STATE = 16; }
 
-		if(STATE == 16 && c=='x'){
+		if( ( STATE == 16 && c=='x' ) || ( STATE == 65) ){
 			if(100>boxesIndex+1){
               boxesIndex++;
-			  boxes[boxesIndex].type = NORMAL ; 
 		   }
-		   STATE = 17;
+		   if(STATE==16){ boxes[boxesIndex].type = NORMAL ; STATE = 17 ; }
+		   if(STATE==65){ boxes[boxesIndex].type = STR   ; STATE = 66 ; }
 		}
 		
 		if(STATE == 17 && c=='l'){ STATE = 18; }
@@ -137,7 +139,7 @@ int runFSM() {
 		}
         
 		if(STATE==35 && c==')'){STATE = 17; }
-        if(STATE == 17 && c=='p'){ STATE = 37; }
+        if(  (STATE == 17 && c=='p') || (STATE == 66)){ STATE = 37; }
         if(STATE == 37 && c=='o'){ STATE = 38; }
 		if(STATE == 38 && c=='s'){ STATE = 39; }
         if(STATE == 39 && c=='='){ STATE = 40; }
@@ -178,7 +180,7 @@ int runFSM() {
 		if(STATE == 55 && c=='a'){ STATE = 56; }
 		if(STATE == 56 && c==':'){ STATE = 57; }
 		
-		if(STATE == 57 && c=='~'){
+		if( (STATE == 57 && c=='~') || (STATE == 70) ){
 			char buffer [1024];
 			int index = 0 ;
             printf("reading: ");
@@ -187,8 +189,9 @@ int runFSM() {
 				//printf("%d %c ",index,c);
 				index++;
 			}
-			
-			boxes[boxesIndex].src = (char *)malloc(sizeof(char)*index);
+			int stringLength = index;
+			boxes[boxesIndex].src = (char *)malloc(sizeof(char)*stringLength);
+            boxes[boxesIndex].stringLength = stringLength;
 			//boxesLength = index;
 			for(int i = 0 ; i < index ; i++ ){
 				boxes[boxesIndex].src[i] = buffer[i];
@@ -197,7 +200,9 @@ int runFSM() {
 			}
 			 boxes[boxesIndex].src[index] = '\0';
 
-            boxes[boxesIndex].type = IMAGE ;
+            if(STATE == 57){
+			   boxes[boxesIndex].type = IMAGE ;
+			}
 			STATE = 17;
 		}
 
@@ -209,11 +214,20 @@ int runFSM() {
 		   number = -1 ;
 		   STATE = 17 ;
 		}
-		
+
+		if(STATE==17 && c== 's'){ STATE = 67 ;}
+		if(STATE==67 && c== 't'){ STATE = 68 ;} 
+		if(STATE==68 && c== 'r'){ STATE = 69 ;}
+		if(STATE==69 && c== ':'){ STATE = 70 ;}
+
 		if(c=='/'){ STATE = 58; }
-		if(STATE == 58 && c=='>'){ STATE = 59; }
+		if(STATE == 58 && c=='>'){ STATE = 0; }
+        if(STATE==0 && c =='t'){   STATE  =  63 ; }
+		if(STATE==63 && c =='e'){ STATE = 64 ; }
+		if(STATE==64 && c =='x'){ STATE = 65 ; }
+
 		printf("STATE %d---> character : [%c]\n",(STATE-1),c);
-    }
+    } // End of FSM
 
 	for(int i = 0 ; i < boxesIndex+1 ;i++ ){
 		printf("dimension lenght :%d\n",dim.length);

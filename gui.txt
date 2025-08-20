@@ -2,7 +2,6 @@
 
 <!-- Top Row -->
 <box position=(0,0) width=300 length=300 Type=image:~./test.jpg~ color=(211,111,201) id=1 />
-<box position=(302,0) width=300 length=300 color=(255,255,255) id=2>
   <!-- 30-box matrix (5 rows x 6 columns) inside ID 2 -->
   <box position=(303,0) width=50 length=60 color=(255,0,0) Type=image:~./test.jpg~ id=20 />
   <box position=(353,0) width=50 length=60 color=(255,0,255) Type=image:~./test2.jpg~ id=21 />
@@ -12,9 +11,9 @@
   <box position=(553,0) width=50 length=60 color=(0,0,255) Type=image:~./test6.jpg~ id=25 />
 
   <box position=(303,60) width=50 length=60 color=(255,0,0) Type=image:~./test7.jpg~ id=26 />
-  <box position=(353,60) width=50 length=60 color=(0,0,255) Type=image:~./test.jpg~ id=27 />
-  <box position=(403,60) width=50 length=60 color=(255,0,0) Type=image:~./test2.jpg~ id=28 />
-  <box position=(453,60) width=50 length=60 color=(0,0,255) Type=image:~./test3.jpg~ id=29 />
+  <box position=(353,60) width=50 length=60 color=(0,0,255) Type=image:~./test8.jpg~ id=27 />
+  <box position=(403,60) width=50 length=60 color=(255,0,0) Type=image:~./test9.jpg~ id=28 />
+  <box position=(453,60) width=50 length=60 color=(0,0,255) Type=image:~./test10.jpg~ id=29 />
   <box position=(503,60) width=50 length=60 color=(255,0,0) Type=image:~./test4.jpg~ id=30 />
   <box position=(553,60) width=50 length=60 color=(0,0,255) Type=image:~./test7.jpg~ id=31 />
 
@@ -57,3 +56,4 @@
 <box position=(630,465) width=130 length=160 Type=image:~./test.jpg~ color=(211,111,201) id=15 />
 
 <box position=(110,622) width=653 length=125 color=(211,111,201) id=7 />
+<text position=(10,10) str:~ this is a string ~ id=26 />
